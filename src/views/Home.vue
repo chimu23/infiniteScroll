@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <scroll :remain="8" :size="30" :items="list" :variable="true">
+      <template #items="{item}">
+          <item :item="item"></item>
+      </template>
+    </scroll>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import scroll from '@/components/scroll.vue'
+import item from '@/components/item.vue'
+import mock from 'mockjs'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    scroll,
+    item
+  },
+  data() {
+    const list = Array(300)
+      .fill({})
+      .map((item, index) => {
+        return { name: mock.Random.sentence(5,30), index }
+      })
+    return {
+      list,
+   
+    }
+  },
+  created() {},
 }
 </script>
